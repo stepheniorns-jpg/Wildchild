@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Your Account — WildChild Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest: #1a3a2a;
+    --moss: #2d5a3d;
+    --sage: #7aab6e;
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --bark: #8b6f47;
+    --text: #2a2318;
+    --muted: #6b5e4e;
+    --border: rgba(42,35,24,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* Nature texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 10% 0%, rgba(122,171,110,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 100%, rgba(26,58,42,0.06) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  /* Header */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 3.5rem;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--forest);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .brand-mark svg { width: 20px; height: 20px; }
+
+  .brand-name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--forest);
+    letter-spacing: -0.01em;
+  }
+
+  /* Hero */
+  .hero {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--forest);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--moss);
+  }
+
+  .hero-lead {
+    font-size: 17px;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.65;
+  }
+
+  /* Method cards */
+  .methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .method-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .card:hover { box-shadow: 0 4px 24px rgba(26,58,42,0.08); }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .card.primary::before { background: var(--forest); }
+  .card.secondary::before { background: var(--sage); }
+
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 99px;
+    margin-bottom: 1rem;
+  }
+
+  .card.primary .card-badge {
+    background: rgba(26,58,42,0.07);
+    color: var(--forest);
+  }
+
+  .card.secondary .card-badge {
+    background: rgba(122,171,110,0.12);
+    color: var(--moss);
+  }
+
+  .card h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  .card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  .steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .step-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--forest);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .card.secondary .step-num { background: var(--moss); }
+
+  .email-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--forest);
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 14px;
+    border: 1px solid rgba(26,58,42,0.2);
+    border-radius: 8px;
+    transition: all 0.15s ease;
+    margin-top: 0.5rem;
+  }
+
+  .email-link:hover {
+    background: rgba(26,58,42,0.05);
+    border-color: rgba(26,58,42,0.35);
+  }
+
+  /* What gets deleted */
+  .data-section {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: var(--cream);
+    border-radius: 16px;
+    border: 1px solid rgba(139,111,71,0.15);
+  }
+
+  .data-section h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--forest);
+    margin-bottom: 0.5rem;
+  }
+
+  .data-section > p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  @media (max-width: 480px) { .data-grid { grid-template-columns: 1fr; } }
+
+  .data-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .data-item::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sage);
+    flex-shrink: 0;
+  }
+
+  /* Notice */
+  .notice {
+    background: rgba(26,58,42,0.04);
+    border: 1px solid rgba(26,58,42,0.1);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+
+  .notice-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .notice p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .notice strong { color: var(--text); font-weight: 500; }
+
+  /* Footer */
+  footer {
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  footer a {
+    color: var(--forest);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  footer a:hover { text-decoration: underline; }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero { animation: fadeUp 0.5s ease both; }
+  .method-label { animation: fadeUp 0.5s 0.1s ease both; }
+  .card:nth-child(1) { animation: fadeUp 0.5s 0.15s ease both; }
+  .card:nth-child(2) { animation: fadeUp 0.5s 0.22s ease both; }
+  .data-section { animation: fadeUp 0.5s 0.28s ease both; }
+  .notice { animation: fadeUp 0.5s 0.34s ease both; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="brand">
+    <div class="brand-mark">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 2C6 2 3 5.5 3 9c0 2.5 1.5 4.5 3.5 5.5V17h7v-2.5C15.5 13.5 17 11.5 17 9c0-3.5-3-7-7-7z" fill="white" opacity="0.9"/>
+        <path d="M10 2v15M7 7l3 3 3-3" stroke="rgba(26,58,42,0.4)" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="brand-name">WildChild Quest</span>
+  </div>
+
+  <div class="hero">
+    <p class="eyebrow">Account management</p>
+    <h1>Delete your <em>account</em></h1>
+    <p class="hero-lead">You can delete your WildChild Quest account and all associated data at any time, either directly in the app or by contacting us.</p>
+  </div>
+
+  <p class="method-label">Choose a method</p>
+
+  <div class="methods">
+    <div class="card primary">
+      <span class="card-badge">★ Recommended</span>
+      <h2>Delete in the app</h2>
+      <p>The fastest way — your account and all data are removed instantly.</p>
+      <ol class="steps">
+        <li><span class="step-num">1</span> Open WildChild Quest on your device</li>
+        <li><span class="step-num">2</span> Go to <strong>Profile</strong> → <strong>Settings</strong></li>
+        <li><span class="step-num">3</span> Tap <strong>Account</strong> → <strong>Delete Account</strong></li>
+        <li><span class="step-num">4</span> Confirm the deletion — this takes effect immediately</li>
+      </ol>
+    </div>
+
+    <div class="card secondary">
+      <span class="card-badge">Email request</span>
+      <h2>Request deletion by email</h2>
+      <p>If you no longer have access to the app, email us and we'll delete your account within 7 days.</p>
+      <ol class="steps">
+        <li><span class="step-num">1</span> Send an email to the address below</li>
+        <li><span class="step-num">2</span> Include the email address linked to your account</li>
+        <li><span class="step-num">3</span> We'll confirm deletion within 7 days</li>
+      </ol>
+      <a href="mailto:apps@sjidigital.co.nz?subject=Account%20Deletion%20Request%20%E2%80%94%20WildChild%20Quest" class="email-link">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 4.5l6 4 6-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        apps@sjidigital.co.nz
+      </a>
+    </div>
+  </div>
+
+  <div class="data-section">
+    <h3>What gets deleted</h3>
+    <p>When your account is deleted, the following data is permanently removed from our servers:</p>
+    <div class="data-grid">
+      <div class="data-item">Your profile and display name</div>
+      <div class="data-item">All saved quests and progress</div>
+      <div class="data-item">Account credentials</div>
+      <div class="data-item">Activity and adventure history</div>
+      <div class="data-item">Subscription records</div>
+      <div class="data-item">Any uploaded photos or content</div>
+      <div class="data-item">Device preferences and settings</div>
+      <div class="data-item">All associated metadata</div>
+    </div>
+  </div>
+
+  <div class="notice">
+    <span class="notice-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#2d5a3d" stroke-width="1.2"/><path d="M8 5v4M8 11v.5" stroke="#2d5a3d" stroke-width="1.3" stroke-linecap="round"/></svg>
+    </span>
+    <p><strong>This action is permanent.</strong> Deleted accounts and data cannot be recovered. If you have an active subscription, cancel it in the App Store or Google Play before deleting your account to avoid future charges.</p>
+  </div>
+
+  <footer>
+    <p>© 2026 SJI Digital Limited</p>
+    <p><a href="mailto:apps@sjidigital.co.nz">apps@sjidigital.co.nz</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
